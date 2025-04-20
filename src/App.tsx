@@ -8,8 +8,16 @@ import routes from './components/Routes/MenuItem';
 
 
 function AppRoutes() {
-  return useRoutes(routes);
+  const routing = useRoutes([
+    {
+      path: '/',
+      element: <LoginPage />,
+    },
+    ...routes,
+  ]);
+  return routing;
 }
+
 
 function App() {
   return (
@@ -22,27 +30,6 @@ function App() {
         </main>
       </div>
     </Router>
-      {/* <Router>
-        
-        <div className="flex">
-          <Sidebar />
-          <main className="flex-1 p-4">
-            <Routes>
-              <Route path="/" element={<LoginPage />} />
-              <Route
-                path="/dashboard"
-                element={
-                  <PriveateRoute>
-                    <Dashboard />
-                  </PriveateRoute>
-                }
-              />
-            </Routes>
-          </main>
-
-        </div>
-
-      </Router> */}
     </>
   )
 }
