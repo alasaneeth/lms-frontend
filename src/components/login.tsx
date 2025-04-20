@@ -26,7 +26,7 @@ const LoginPage: React.FC = () => {
   
       // Redirect if login is successful
       if (response?.token) {
-        navigate('/dashboard');
+        navigate('/student');
       }
     } catch (error) {
       console.error("Login failed:", error);
