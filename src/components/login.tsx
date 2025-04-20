@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import Auth from '../services/AuthService/Auth';
+import { useNavigate } from 'react-router-dom';
 
 type LoginFormInputs = {
   username: string;
@@ -7,6 +9,8 @@ type LoginFormInputs = {
 };
 
 const LoginPage: React.FC = () => {
+
+    const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -15,10 +19,21 @@ const LoginPage: React.FC = () => {
 
   const [showPassword, setShowPassword] = useState(false);
 
-  const onSubmit: SubmitHandler<LoginFormInputs> = (data) => {
-    console.log('Login Data:', data);
-    // Handle login logic here
+  const onSubmit: SubmitHandler<LoginFormInputs> = async (data) => {
+    try {
+      const { username, password } = data;
+      const response = await Auth.login(username, password);
+  
+      // Redirect if login is successful
+      if (response?.token) {
+        navigate('/dashboard');
+      }
+    } catch (error) {
+      console.error("Login failed:", error);
+      // Optionally show an error to the user here
+    }
   };
+  
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">

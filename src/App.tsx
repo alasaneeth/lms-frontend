@@ -1,18 +1,27 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
 import LoginPage from './components/login'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import PriveateRoute from './components/Routes/PriveateRoute';
+import Dashboard from './components/DashBoard/Dashboard';
 
 function App() {
-  const apiUrl = import.meta.env.VITE_API_URL;
-
-
   return (
-    
-  <>
-
-    {/* <LoginPage/> */}
-    {apiUrl}/register
-  </>
+    <>
+    <Router>
+    <Routes>
+        <Route path="/" element={<LoginPage />} />
+        <Route 
+          path="/dashboard" 
+          element={
+            <PriveateRoute>
+              <Dashboard />
+            </PriveateRoute>
+          } 
+        />
+       
+      </Routes>
+    </Router>
+    </>
   )
 }
 
