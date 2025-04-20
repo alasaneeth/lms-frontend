@@ -33,8 +33,8 @@ const SideNav: React.FC = () => {
 
       {/* Sidebar for desktop and toggle for mobile */}
       <nav
-        className={`fixed top-0 left-0 h-full bg-gray-800 text-white w-64 p-4 transform transition-transform duration-300 ease-in-out z-50
-        ${isOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 md:relative md:flex md:flex-col`}
+        className={`fixed top-0 left-0 h-screen bg-gray-800 text-white w-64 p-4 transform transition-transform duration-300 ease-in-out z-50
+  ${isOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 md:relative md:flex md:flex-col`}
       >
         {/* Close button for mobile */}
         <button className="md:hidden mb-4 text-white" onClick={closeSidebar}>
@@ -56,8 +56,7 @@ const SideNav: React.FC = () => {
             <NavLink
               to="/student"
               className={({ isActive }) =>
-                `flex items-center gap-2 p-2 rounded hover:bg-gray-700 ${
-                  isActive ? 'bg-gray-700 font-bold' : ''
+                `flex items-center gap-2 p-2 rounded hover:bg-gray-700 ${isActive ? 'bg-gray-700 font-bold' : ''
                 }`
               }
               onClick={closeSidebar}
@@ -70,8 +69,7 @@ const SideNav: React.FC = () => {
             <NavLink
               to="/tutors"
               className={({ isActive }) =>
-                `flex items-center gap-2 p-2 rounded hover:bg-gray-700 ${
-                  isActive ? 'bg-gray-700 font-bold' : ''
+                `flex items-center gap-2 p-2 rounded hover:bg-gray-700 ${isActive ? 'bg-gray-700 font-bold' : ''
                 }`
               }
               onClick={closeSidebar}
@@ -84,8 +82,7 @@ const SideNav: React.FC = () => {
             <NavLink
               to="/result"
               className={({ isActive }) =>
-                `flex items-center gap-2 p-2 rounded hover:bg-gray-700 ${
-                  isActive ? 'bg-gray-700 font-bold' : ''
+                `flex items-center gap-2 p-2 rounded hover:bg-gray-700 ${isActive ? 'bg-gray-700 font-bold' : ''
                 }`
               }
               onClick={closeSidebar}
