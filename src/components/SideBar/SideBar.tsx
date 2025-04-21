@@ -1,12 +1,12 @@
 import React, { useState, useMemo, lazy, Suspense } from 'react';
 import { NavLink } from 'react-router-dom';
-import { FaBars, FaTimes } from 'react-icons/fa';
+import { FaBars, FaChalkboardTeacher, FaPoll, FaTimes, FaUserGraduate } from 'react-icons/fa';
 import { USER_ROLE } from '../Constants/UserRoles';
 
 // Lazy-loaded icons
-const FaUserGraduate = lazy(() => import('react-icons/fa').then(mod => ({ default: mod.FaUserGraduate })));
-const FaChalkboardTeacher = lazy(() => import('react-icons/fa').then(mod => ({ default: mod.FaChalkboardTeacher })));
-const FaPoll = lazy(() => import('react-icons/fa').then(mod => ({ default: mod.FaPoll })));
+// const FaUserGraduate = lazy(() => import('react-icons/fa').then(mod => ({ default: mod.FaUserGraduate })));
+// const FaChalkboardTeacher = lazy(() => import('react-icons/fa').then(mod => ({ default: mod.FaChalkboardTeacher })));
+// const FaPoll = lazy(() => import('react-icons/fa').then(mod => ({ default: mod.FaPoll })));
 
 const getNavItemsByRole = (roleId: number) => {
   switch (roleId) {

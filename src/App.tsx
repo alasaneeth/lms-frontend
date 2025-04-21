@@ -2,7 +2,7 @@ import { useState } from 'react'
 import LoginPage from './components/login'
 import { BrowserRouter as Router, Routes, Route, Navigate, Outlet } from 'react-router-dom'
 import Sidebar from './components/SideBar/SideBar'
-import routes from './components/Routes/MenuItem'
+import routes from './components/Routes/AuthorisedRouteConfig'
 import Auth from './services/AuthService/Auth'
 
 function ProtectedLayout() {
