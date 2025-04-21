@@ -43,6 +43,7 @@ class AuthService {
   getToken() {
     return localStorage.getItem("token");
   }
+  
   isAuthenticated(): boolean {
     return !!localStorage.getItem("token");
   }
