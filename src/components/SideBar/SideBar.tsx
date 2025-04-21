@@ -1,34 +1,7 @@
-import React, { useState, useMemo, lazy, Suspense } from 'react';
+import React, { useState, useMemo, Suspense } from 'react';
 import { NavLink } from 'react-router-dom';
-import { FaBars, FaChalkboardTeacher, FaPoll, FaTimes, FaUserGraduate } from 'react-icons/fa';
-import { USER_ROLE } from '../Constants/UserRoles';
-
-// Lazy-loaded icons
-// const FaUserGraduate = lazy(() => import('react-icons/fa').then(mod => ({ default: mod.FaUserGraduate })));
-// const FaChalkboardTeacher = lazy(() => import('react-icons/fa').then(mod => ({ default: mod.FaChalkboardTeacher })));
-// const FaPoll = lazy(() => import('react-icons/fa').then(mod => ({ default: mod.FaPoll })));
-
-const getNavItemsByRole = (roleId: number) => {
-  switch (roleId) {
-    case USER_ROLE.ADMIN:
-      return [
-        { to: '/student', label: 'Student', icon: <FaUserGraduate /> },
-        { to: '/tutors', label: 'Tutors', icon: <FaChalkboardTeacher /> },
-        { to: '/result', label: 'Result', icon: <FaPoll /> },
-      ];
-    case USER_ROLE.TUTOR:
-      return [
-        { to: '/student', label: 'Student', icon: <FaUserGraduate /> },
-        { to: '/result', label: 'Result', icon: <FaPoll /> },
-      ];
-    case USER_ROLE.STUDENT:
-      return [
-        { to: '/result', label: 'Result', icon: <FaPoll /> },
-      ];
-    default:
-      return [];
-  }
-};
+import { FaBars, FaTimes } from 'react-icons/fa';
+import { getNavItemsByRole } from './navItems';
 
 const SideNav: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
