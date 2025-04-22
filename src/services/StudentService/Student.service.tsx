@@ -1,104 +1,102 @@
+import axiosInstance from "../../api/axiosInstance";
 
-
-import axios from "axios";
-
-
-const API_URL = import.meta.env.VITE_API_URL;
-
-class Student {
+class StudentService {
   create = async (voucher: any) => {
-    const res = await axios.post<any>(`${API_URL}gift-voucher`, voucher)
-      .catch((e) => {
-        const { message } = e.response.data;
-        if (message.errorInfo) throw message.errorInfo[2];
-        else throw e.message;
-      });
-    return res.data.vouchers;
+    try {
+      const res = await axiosInstance.post("gift-voucher", voucher);
+      return res.data.vouchers;
+    } catch (e: any) {
+      const { message } = e.response?.data || {};
+      if (message?.errorInfo) throw message.errorInfo[2];
+      throw e.message;
+    }
   };
 
-  edit = async (customer: any, code: any) => {
-    await axios.put(`${API_URL}customer/${code}`, customer)
-      .catch((e) => {
-        const { message } = e.response.data;
-        if (message.errorInfo) throw message.errorInfo[2];
-        else throw e.message;
-      });
+  edit = async (customer: any, code: string) => {
+    try {
+      await axiosInstance.put(`customer/${code}`, customer);
+    } catch (e: any) {
+      const { message } = e.response?.data || {};
+      if (message?.errorInfo) throw message.errorInfo[2];
+      throw e.message;
+    }
   };
 
-  get = async (code: any) => {
-    const response = await axios.get<any>(`${API_URL}customer/${code}`)
-      .catch((e) => {
-        throw e.message;
-      });
-    return response.data.customer;
+  get = async (code: string) => {
+    try {
+      const response = await axiosInstance.get(`customer/${code}`);
+      return response.data.customer;
+    } catch (e: any) {
+      throw e.message;
+    }
   };
 
   getAll = async () => {
-    const response = await axios.get<any>(`${API_URL}get-all-students`)
-      .catch((e) => {
-        throw e.message;
-      });
-    return response.data;
+    try {
+      const response = await axiosInstance.get("get-all-students");
+      return response.data;
+    } catch (e: any) {
+      throw e.response?.data?.message || e.message;
+    }
   };
 
-  search = async (keyword: any) => {
-    const response = await axios.get<any>(`${API_URL}gift-voucher-search/${keyword}`)
-      .catch((e) => {
-        throw e.message;
-      });
-    return response.data.giftVocuher;
+  search = async (keyword: string) => {
+    try {
+      const response = await axiosInstance.get(`gift-voucher-search/${keyword}`);
+      return response.data.giftVocuher;
+    } catch (e: any) {
+      throw e.message;
+    }
   };
 
-  issuedVocuherSearch = async (keyword: any) => {
-    const response = await axios.get<any>(`${API_URL}issued-voucher-search/${keyword}`)
-      .catch((e) => {
-        throw e.message;
-      });
-    return response.data.giftVocuher;
+  issuedVoucherSearch = async (keyword: string) => {
+    try {
+      const response = await axiosInstance.get(`issued-voucher-search/${keyword}`);
+      return response.data.giftVocuher;
+    } catch (e: any) {
+      throw e.message;
+    }
   };
 
-
-  freeVocuherSearch = async (keyword: any) => {
-    const response = await axios.get<any>(`${API_URL}free-gift-voucher-search/${keyword}`)
-      .catch((e) => {
-        throw e.message;
-      });
-    return response.data.giftVocuher;
+  freeVoucherSearch = async (keyword: string) => {
+    try {
+      const response = await axiosInstance.get(`free-gift-voucher-search/${keyword}`);
+      return response.data.giftVocuher;
+    } catch (e: any) {
+      throw e.message;
+    }
   };
 
-  paidVocuherSearch = async (keyword: any) => {
-    const response = await axios.get<any>(`${API_URL}paid-gift-voucher-search/${keyword}`)
-      .catch((e) => {
-        throw e.message;
-      });
-    return response.data.giftVocuher;
+  paidVoucherSearch = async (keyword: string) => {
+    try {
+      const response = await axiosInstance.get(`paid-gift-voucher-search/${keyword}`);
+      return response.data.giftVocuher;
+    } catch (e: any) {
+      throw e.message;
+    }
   };
 
   sendSms = async (customer: any) => {
-    const res = await axios({
-      method: "post",
-      url: `${API_URL}outstanding-sms`,
-      data: customer,
-    }).catch((e) => {
-      const { message } = e.response.data;
-      if (message.errorInfo) throw message.errorInfo[2];
-      else throw e.message;
-    });
-    return res.data;
+    try {
+      const res = await axiosInstance.post("outstanding-sms", customer);
+      return res.data;
+    } catch (e: any) {
+      const { message } = e.response?.data || {};
+      if (message?.errorInfo) throw message.errorInfo[2];
+      throw e.message;
+    }
   };
 
-  sendproductStatus = async (customer: any) => {
-    const res = await axios({
-      method: "post",
-      url: `${API_URL}send-product-sms`,
-      data: customer,
-    }).catch((e) => {
-      const { message } = e.response.data;
-      if (message.errorInfo) throw message.errorInfo[2];
-      else throw e.message;
-    });
-    return res.data;
+  sendProductStatus = async (customer: any) => {
+    try {
+      const res = await axiosInstance.post("send-product-sms", customer);
+      return res.data;
+    } catch (e: any) {
+      const { message } = e.response?.data || {};
+      if (message?.errorInfo) throw message.errorInfo[2];
+      throw e.message;
+    }
   };
-
 }
-export default new Student();
+
+export default new StudentService();
