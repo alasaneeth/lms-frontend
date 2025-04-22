@@ -510,15 +510,7 @@ const TableView: React.FC<TableViewProps> = (props) => {
               </button>
             </div>
           </div>
-          <div className="flex items-center p-2">
-            <input
-              type="checkbox"
-              checked={dense}
-              onChange={handleChangeDense}
-              className="form-checkbox mr-2"
-            />
-            <label>Dense padding</label>
-          </div>
+          
         </div>
       </div>
     </>
