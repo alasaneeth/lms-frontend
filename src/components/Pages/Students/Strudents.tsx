@@ -11,11 +11,38 @@ const Customer = () => {
   const customerTableHeadCells = [
      
       {
-        id: (row:any) => row["customCode"],
+        id: (row:any) => row["fullName"],
         numeric: false,
         disablePadding: false,
         label: "Custom Code",
       },
+      {
+        id: (row:any) => row["gender"],
+        numeric: false,
+        disablePadding: false,
+        label: "Geneder",
+      },
+      {
+        id: (row:any) => row["dob"],
+        numeric: false,
+        disablePadding: false,
+        label: "DOB",
+      },
+      {
+        id: (row:any) => row["phone"],
+        numeric: false,
+        disablePadding: false,
+        label: "Phone",
+      },
+
+      {
+        id: (row:any) => row["status"],
+        numeric: false,
+        disablePadding: false,
+        label: "Status",
+      },
+
+      
    
   ];
 
