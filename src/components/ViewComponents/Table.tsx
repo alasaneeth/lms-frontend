@@ -1,7 +1,4 @@
 import React, { useState, useRef, useEffect, ChangeEvent, KeyboardEvent, MouseEvent } from "react";
-import PropTypes from "prop-types";
-//import ReactToPrint from "react-to-print";
-//import { useDispatch, useSelector } from "react-redux";
 import { useForm, Controller } from "react-hook-form";
 //import Dialog from "../Dialog-Box/dialog";
 //import SelectedRowsPrint from "../../Print/selectedRowsPrint";
@@ -24,12 +21,12 @@ interface TableViewProps {
   headCells: HeadCell[];
   service: any;
   noAdding?: boolean;
-  AddComponent: React.ComponentType<any>;
+  //AddComponent: React.ComponentType<any>;
   editable?: boolean;
   deletable?: boolean;
   actions?: Action[];
   searchable?: boolean;
-  ViewComponent?: React.ComponentType<any>;
+  //ViewComponent?: React.ComponentType<any>;
   dialogBoxWidth?: string;
   customService?: any;
   lockable?: boolean;
@@ -51,12 +48,12 @@ const TableView: React.FC<TableViewProps> = (props) => {
     headCells,
     service,
     noAdding,
-    AddComponent,
+    //AddComponent,
     editable,
     deletable,
     actions,
     searchable,
-    ViewComponent,
+    //ViewComponent,
     dialogBoxWidth,
     customService,
     lockable,
@@ -105,7 +102,7 @@ const TableView: React.FC<TableViewProps> = (props) => {
       const locationFilteredData = results.filter((row: any) => row.stockLocationCode === locationCode);
       withoutLocationFilter ? setData(results) : setData(locationFilteredData);
       setSelected([]);
-    
+
     } catch (e) {
      // dispatch(openSnackbar(true, "error", e));
      console.log(e)
@@ -113,13 +110,12 @@ const TableView: React.FC<TableViewProps> = (props) => {
     setLoading(false);
   };
 
-
   const handleDelete = async (code: string, setSelected: (selected: string[]) => void) => {
     try {
       await service.delete(code);
       fetchTableRows();
       setSelected([]);
-      //dispatch(openSnackbar(true, "success", `Deleted successfully`));
+      //dispatch(openSnackbar(true, "success", Deleted successfully));
     } catch (e) {
       //dispatch(openSnackbar(true, "error", e));
     }
@@ -146,8 +142,6 @@ const TableView: React.FC<TableViewProps> = (props) => {
     }
   };
 
-
-
   const EnhancedTableHead: React.FC<{ onSelectAllClick: (event: ChangeEvent<HTMLInputElement>) => void; numSelected: number; rowCount: number }> = (props) => {
     const { onSelectAllClick, numSelected, rowCount } = props;
 
@@ -173,12 +167,6 @@ const TableView: React.FC<TableViewProps> = (props) => {
         </tr>
       </thead>
     );
-  };
-
-  EnhancedTableHead.propTypes = {
-    numSelected: PropTypes.number.isRequired,
-    onSelectAllClick: PropTypes.func.isRequired,
-    rowCount: PropTypes.number.isRequired,
   };
 
   const handleClickOpen = () => {
@@ -302,10 +290,6 @@ const TableView: React.FC<TableViewProps> = (props) => {
     );
   };
 
-  EnhancedTableToolbar.propTypes = {
-    numSelected: PropTypes.number.isRequired,
-  };
-
   const handleSelectAllClick = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
       const newSelecteds = data.map((n) => n.code);
@@ -352,7 +336,6 @@ const TableView: React.FC<TableViewProps> = (props) => {
 
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
-
 
   return (
     <>
@@ -428,7 +411,6 @@ const TableView: React.FC<TableViewProps> = (props) => {
         )}
 
         <div>
-        
           {selected.length > 0 && (
             <EnhancedTableToolbar numSelected={selected.length} title={title} />
           )}
