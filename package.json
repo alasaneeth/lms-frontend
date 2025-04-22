@@ -14,6 +14,7 @@
     "axios": "^1.8.4",
     "lucide": "^0.501.0",
     "lucide-react": "^0.501.0",
+    "prop-types": "^15.8.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.55.0",
@@ -23,6 +24,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.22.0",
+    "@types/prop-types": "^15.7.14",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "@vitejs/plugin-react": "^4.3.4",
