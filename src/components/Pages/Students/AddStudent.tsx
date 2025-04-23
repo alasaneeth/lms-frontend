@@ -29,6 +29,13 @@ const AddStudent = ({ onClose }: { onClose: () => void }) => {
   return (
     <div className="fixed top-0 left-0 w-full h-full z-50 flex justify-center items-center bg-black/50 backdrop-blur-sm overflow-y-auto">
       <div className="relative p-4 w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-white rounded-lg shadow-lg">
+        <div className='flex justify-end'>
+        <button
+          onClick={() => onClose()}>
+          X
+        </button>
+        </div>
+      
         <h2 className="text-2xl font-bold mb-4">Student Enrolment Form</h2>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div className="flex flex-wrap gap-2">
@@ -145,12 +152,7 @@ const AddStudent = ({ onClose }: { onClose: () => void }) => {
           </div>
 
           <div className='flex justify-end'>
-            <button
-              onClick={() => onClose()}
-              className=" bg-red-600 text-white font-semibold mr-2 py-2 px-4 rounded-xl hover:bg-red-700"
-            >
-              Cancel
-            </button>
+          
             <button
               type="submit"
               className=" bg-blue-600 text-white font-semibold py-2 px-4 rounded-xl hover:bg-blue-700"
