@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import StudentService from '../../../services/StudentService/Student.service';
 import { handleGender, handleStatus } from '../../ReuableFunctions/SwitchBaedFunctions';
+import AddStudent from './AddStudent';
 
 const Students = () => {
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);  // Tracks the current page
   const [rowsPerPage] = useState(8);  // Number of rows to display per page
+  const [showModel,setShowModel] = useState(false)
 
   useEffect(() => {
     const fetchStudent = async () => {
@@ -45,13 +47,20 @@ const Students = () => {
   };
 
 
-  
-
-
-
   return (
     <>
       <h5 className="text-xl font-bold uppercase mb-4">Student</h5>
+      <button
+      onClick={()=>setShowModel(true)}
+      data-modal-target="crud-modal"
+      data-modal-toggle="crud-modal"
+      className="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mb-4" 
+      type="button"
+    >
+      Add Student
+    </button>
+
+    {showModel && <AddStudent onClose={()=>setShowModel(false)}/>}
       <div className="relative overflow-x-auto bg-white text-black">
         <table className="w-full text-sm text-left text-black">
           <thead className="text-xs text-black uppercase bg-gray-100">
