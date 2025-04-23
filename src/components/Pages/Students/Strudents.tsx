@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import StudentService from '../../../services/StudentService/Student.service';
-import { handleGender } from '../../ReuableFunctions/SwitchBaedFunctions';
+import { handleGender, handleStatus } from '../../ReuableFunctions/SwitchBaedFunctions';
 
 const Students = () => {
   const [data, setData] = useState([]);
@@ -72,7 +72,7 @@ const Students = () => {
                 <td className="px-6 py-4">{handleGender(row.gender)}</td>
                 <td className="px-6 py-4">{row.dob}</td>
                 <td className="px-6 py-4">{row.phone}</td>
-                <td className="px-6 py-4">{row.status}</td>
+                <td className="px-6 py-4">{handleStatus(row.status) }</td>
               </tr>
             ))}
           </tbody>
