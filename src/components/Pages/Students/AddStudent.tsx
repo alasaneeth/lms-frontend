@@ -23,7 +23,7 @@ type FormData = {
   userRole:number;
 };
 
-const AddStudent = ({ onClose }: { onClose: () => void }) => {
+const AddStudent = ({ onClose, onStudentCreated }: { onClose: () => void; onStudentCreated: () => void }) => {
 
   const {
     register,
@@ -41,9 +41,9 @@ const AddStudent = ({ onClose }: { onClose: () => void }) => {
     const response = await StudentService.create(data);
     console.log(response);
     toast.success("Student created successfully")
+    onStudentCreated();
     onClose();
   
-    
   };
 
   return (

@@ -6,14 +6,15 @@ import AddStudent from './AddStudent';
 const Students = () => {
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);  // Tracks the current page
-  const [rowsPerPage] = useState(8);  // Number of rows to display per page
+  const [rowsPerPage] = useState(6);  // Number of rows to display per page
   const [showModel,setShowModel] = useState(false)
 
+  const fetchStudent = async () => {
+    const res = await StudentService.getAll();
+    setData(res);
+  };
+
   useEffect(() => {
-    const fetchStudent = async () => {
-      const res = await StudentService.getAll();
-      setData(res);
-    };
     fetchStudent();
   }, []);
 
@@ -60,7 +61,8 @@ const Students = () => {
       Add Student
     </button>
 
-    {showModel && <AddStudent onClose={()=>setShowModel(false)}/>}
+    {showModel && <AddStudent onClose={() => setShowModel(false)} onStudentCreated={fetchStudent} />}
+
       <div className="relative overflow-x-auto bg-white text-black">
         <table className="w-full text-sm text-left text-black">
           <thead className="text-xs text-black uppercase bg-gray-100">
