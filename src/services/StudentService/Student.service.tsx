@@ -1,10 +1,10 @@
 import axiosInstance from "../../api/axiosInstance";
 
 class StudentService {
-  create = async (voucher: any) => {
+  create = async (student: any) => {
     try {
-      const res = await axiosInstance.post("gift-voucher", voucher);
-      return res.data.vouchers;
+      const res = await axiosInstance.post("student-register", student);
+      return res.data.userId;
     } catch (e: any) {
       const { message } = e.response?.data || {};
       if (message?.errorInfo) throw message.errorInfo[2];
