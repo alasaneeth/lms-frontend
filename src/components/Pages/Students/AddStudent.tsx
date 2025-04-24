@@ -4,6 +4,8 @@ import { STATUS } from '../../Constants/Status';
 import { GENDER } from '../../Constants/Gender';
 import StudentService from '../../../services/StudentService/Student.service';
 import { USER_ROLE } from '../../Constants/UserRoles';
+import toast from 'react-hot-toast';
+
 
 type FormData = {
   fullName: string;
@@ -38,6 +40,10 @@ const AddStudent = ({ onClose }: { onClose: () => void }) => {
 
     const response = await StudentService.create(data);
     console.log(response);
+    toast.success("Student created successfully")
+    onClose();
+  
+    
   };
 
   return (
@@ -197,6 +203,7 @@ const AddStudent = ({ onClose }: { onClose: () => void }) => {
               Submit
             </button>
           </div>
+       
 
 
         </form>

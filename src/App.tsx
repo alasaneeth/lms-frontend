@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Routes, Route, Navigate, Outlet } from 'react-
 import Sidebar from './components/SideBar/SideBar'
 import routes from './components/Routes/AuthorisedRouteConfig'
 import Auth from './services/AuthService/Auth'
+import { Toaster } from 'react-hot-toast' // <- Import this
+
 
 function ProtectedLayout() {
   const isAuthenticated = Auth.isAuthenticated()
@@ -25,6 +27,7 @@ function ProtectedLayout() {
 function App() {
   return (
     <Router>
+        <Toaster position="top-center" reverseOrder={false} />
       <Routes>
         <Route path="/" element={<LoginPage />} />
         
