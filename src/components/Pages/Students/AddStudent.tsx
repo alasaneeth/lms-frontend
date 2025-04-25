@@ -204,24 +204,28 @@ const AddStudent = ({ onClose, onStudentCreated, id }: { onClose: () => void; on
             </div>
           </div>
 
-          <div className="flex flex-wrap gap-2">
-            <div className="flex-1">
-              <label className="block mb-1 font-medium">Username</label>
-              <input
-                {...register("username", id ? {} : { required: "Username is required" })}
-                className="w-full border rounded-xl px-3 py-2"
-              />
-              {errors.username && <p className="text-red-500">{errors.username.message}</p>}
-            </div>
-            <div className="flex-1">
-              <label className="block mb-1 font-medium">Password</label>
-              <input
-                {...register("password", id ? {} : { required: "Password is required" })}
-                className="w-full border rounded-xl px-3 py-2"
-              />
-              {errors.password && <p className="text-red-500">{errors.password.message}</p>}
-            </div>
-          </div>
+          {!id && (
+             <div className="flex flex-wrap gap-2">
+             <div className="flex-1">
+               <label className="block mb-1 font-medium">Username</label>
+               <input
+                 {...register("username", id ? {} : { required: "Username is required" })}
+                 className="w-full border rounded-xl px-3 py-2"
+               />
+               {errors.username && <p className="text-red-500">{errors.username.message}</p>}
+             </div>
+             <div className="flex-1">
+               <label className="block mb-1 font-medium">Password</label>
+               <input
+                 {...register("password", id ? {} : { required: "Password is required" })}
+                 className="w-full border rounded-xl px-3 py-2"
+               />
+               {errors.password && <p className="text-red-500">{errors.password.message}</p>}
+             </div>
+           </div>
+          )}
+
+         
 
 
 
