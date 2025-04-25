@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { STATUS } from '../../Constants/Status';
 import { GENDER } from '../../Constants/Gender';
@@ -23,25 +23,48 @@ type FormData = {
   userRole:number;
 };
 
-const AddStudent = ({ onClose, onStudentCreated }: { onClose: () => void; onStudentCreated: () => void }) => {
+const AddStudent = ({ onClose, onStudentCreated,id }: { onClose: () => void; onStudentCreated: () => void,id:any }) => {
+
+  const [initValue, setInitValue] = useState<FormData | null>(null);
 
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
-  } = useForm<FormData>({
-    defaultValues:{
-      userRole:USER_ROLE.STUDENT,
-    }
-  });
+  } = useForm<FormData>();
 
-  useEffect(()=> {
-   const fetchStudentById = async () => {
-      const res = StudentService.get
-    }
-    fetchStudentById();
-  },[])
 
+  useEffect(() => {
+    const fetchStudentById = async () => {
+      const res = await StudentService.get(id);
+      setInitValue(res);
+      reset(res); // update form with fetched data
+    };
+  
+    if (id) {
+      fetchStudentById();
+    } else {
+      const defaultData: FormData = {
+        fullName: "",
+        gender: "",
+        dob: "",
+        phone: "",
+        email: "",
+        address: "",
+        studentId: "",
+        status: "",
+        enrolmentDate: "",
+        widthrowelDate: "",
+        username: "",
+        password: "",
+        userRole: USER_ROLE.STUDENT,
+      };
+      setInitValue(defaultData);
+      reset(defaultData); // reset to default if no id
+    }
+  }, [id, reset]);
+  
   const onSubmit = async (data: FormData) => {
     console.log("Form submitted:", data)
 

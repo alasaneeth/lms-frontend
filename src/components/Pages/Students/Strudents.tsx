@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react';
 import StudentService from '../../../services/StudentService/Student.service';
 import { handleGender, handleStatus } from '../../ReuableFunctions/SwitchBaedFunctions';
 import AddStudent from './AddStudent';
+import { FaPencilAlt } from 'react-icons/fa';
 
 const Students = () => {
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);  // Tracks the current page
   const [rowsPerPage] = useState(6);  // Number of rows to display per page
   const [showModel,setShowModel] = useState(false)
+  const [id,setId] = useState(null);
 
   const fetchStudent = async () => {
     const res = await StudentService.getAll();
@@ -61,7 +63,7 @@ const Students = () => {
       Add Student
     </button>
 
-    {showModel && <AddStudent onClose={() => setShowModel(false)} onStudentCreated={fetchStudent} />}
+    {showModel && <AddStudent onClose={() => setShowModel(false)} onStudentCreated={fetchStudent} id={id} />}
 
       <div className="relative overflow-x-auto bg-white text-black">
         <table className="w-full text-sm text-left text-black">
@@ -73,6 +75,7 @@ const Students = () => {
               <th scope="col" className="px-6 py-3">DOB</th>
               <th scope="col" className="px-6 py-3">Phone</th>
               <th scope="col" className="px-6 py-3">Status</th>
+              <th scope="col" className='px-6 py-3'>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -84,6 +87,10 @@ const Students = () => {
                 <td className="px-6 py-4">{row.dob}</td>
                 <td className="px-6 py-4">{row.phone}</td>
                 <td className="px-6 py-4">{handleStatus(row.status) }</td>
+                <td className='px-6 py-4' ><button onClick={()=>{
+                  setShowModel(true)
+                  setId(row.id)
+                  }}><FaPencilAlt/></button> </td>
               </tr>
             ))}
           </tbody>
