@@ -9,7 +9,7 @@ import toast from 'react-hot-toast';
 
 type FormData = {
   fullName: string;
-  gender: string;
+  gender: number;
   dob: string;
   phone: string;
   email: string;
@@ -20,10 +20,10 @@ type FormData = {
   widthrowelDate: string;
   username: string;
   password: string;
-  userRole:number;
+  userRole: number;
 };
 
-const AddStudent = ({ onClose, onStudentCreated,id }: { onClose: () => void; onStudentCreated: () => void,id:any }) => {
+const AddStudent = ({ onClose, onStudentCreated, id }: { onClose: () => void; onStudentCreated: () => void, id: any }) => {
 
   const [initValue, setInitValue] = useState<FormData | null>(null);
 
@@ -41,13 +41,13 @@ const AddStudent = ({ onClose, onStudentCreated,id }: { onClose: () => void; onS
       setInitValue(res);
       reset(res); // update form with fetched data
     };
-  
+
     if (id) {
       fetchStudentById();
     } else {
       const defaultData: FormData = {
         fullName: "",
-        gender: "",
+        gender: 0,
         dob: "",
         phone: "",
         email: "",
@@ -64,7 +64,7 @@ const AddStudent = ({ onClose, onStudentCreated,id }: { onClose: () => void; onS
       reset(defaultData); // reset to default if no id
     }
   }, [id, reset]);
-  
+
   const onSubmit = async (data: FormData) => {
     console.log("Form submitted:", data)
 
@@ -73,7 +73,7 @@ const AddStudent = ({ onClose, onStudentCreated,id }: { onClose: () => void; onS
     toast.success("Student created successfully")
     onStudentCreated();
     onClose();
-  
+
   };
 
   return (
@@ -197,7 +197,7 @@ const AddStudent = ({ onClose, onStudentCreated,id }: { onClose: () => void; onS
               <label className="block mb-1 font-medium">widthrowel Date</label>
               <input
                 type="date"
-                 {...register("widthrowelDate")}
+                {...register("widthrowelDate")}
                 className="w-full border rounded-xl px-3 py-2"
               />
               {/* {errors.widthrowelDate && <p className="text-red-500">{errors.widthrowelDate.message}</p>} */}
@@ -208,21 +208,22 @@ const AddStudent = ({ onClose, onStudentCreated,id }: { onClose: () => void; onS
             <div className="flex-1">
               <label className="block mb-1 font-medium">Username</label>
               <input
-                {...register("username", { required: "username date is required" })}
+                {...register("username", id ? {} : { required: "Username is required" })}
                 className="w-full border rounded-xl px-3 py-2"
               />
-              
               {errors.username && <p className="text-red-500">{errors.username.message}</p>}
             </div>
             <div className="flex-1">
               <label className="block mb-1 font-medium">Password</label>
               <input
-                {...register("password", { required: "password date is required" })}
+                {...register("password", id ? {} : { required: "Password is required" })}
                 className="w-full border rounded-xl px-3 py-2"
               />
               {errors.password && <p className="text-red-500">{errors.password.message}</p>}
             </div>
           </div>
+
+
 
           <div className='flex justify-end'>
 
@@ -233,7 +234,7 @@ const AddStudent = ({ onClose, onStudentCreated,id }: { onClose: () => void; onS
               Submit
             </button>
           </div>
-       
+
 
 
         </form>
