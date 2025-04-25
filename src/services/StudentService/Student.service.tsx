@@ -22,10 +22,10 @@ class StudentService {
     }
   };
 
-  get = async (code: string) => {
+  get = async (id: string) => {
     try {
-      const response = await axiosInstance.get(`customer/${code}`);
-      return response.data.customer;
+      const response = await axiosInstance.get(`students/${id}`);
+      return response.data.student;
     } catch (e: any) {
       throw e.message;
     }

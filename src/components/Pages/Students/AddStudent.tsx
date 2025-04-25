@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { STATUS } from '../../Constants/Status';
 import { GENDER } from '../../Constants/Gender';
@@ -34,6 +34,13 @@ const AddStudent = ({ onClose, onStudentCreated }: { onClose: () => void; onStud
       userRole:USER_ROLE.STUDENT,
     }
   });
+
+  useEffect(()=> {
+   const fetchStudentById = async () => {
+      const res = StudentService.get
+    }
+    fetchStudentById();
+  },[])
 
   const onSubmit = async (data: FormData) => {
     console.log("Form submitted:", data)
