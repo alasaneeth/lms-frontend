@@ -3,13 +3,18 @@ import StudentService from '../../../services/StudentService/Student.service';
 import { handleGender, handleStatus } from '../../ReuableFunctions/SwitchBaedFunctions';
 import AddStudent from './AddStudent';
 import { FaPencilAlt } from 'react-icons/fa';
+import { BiSolidShow } from "react-icons/bi";
+import { IoMdArchive } from "react-icons/io";
+
+
+
 
 const Students = () => {
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);  // Tracks the current page
   const [rowsPerPage] = useState(6);  // Number of rows to display per page
-  const [showModel,setShowModel] = useState(false)
-  const [id,setId] = useState(null);
+  const [showModel, setShowModel] = useState(false)
+  const [id, setId] = useState(null);
 
   const fetchStudent = async () => {
     const res = await StudentService.getAll();
@@ -54,16 +59,16 @@ const Students = () => {
     <>
       <h5 className="text-xl font-bold uppercase mb-4">Student</h5>
       <button
-      onClick={()=>setShowModel(true)}
-      data-modal-target="crud-modal"
-      data-modal-toggle="crud-modal"
-      className="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mb-4" 
-      type="button"
-    >
-      Add Student
-    </button>
+        onClick={() => setShowModel(true)}
+        data-modal-target="crud-modal"
+        data-modal-toggle="crud-modal"
+        className="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mb-4"
+        type="button"
+      >
+        Add Student
+      </button>
 
-    {showModel && <AddStudent onClose={() => setShowModel(false)} onStudentCreated={fetchStudent} id={id} />}
+      {showModel && <AddStudent onClose={() => setShowModel(false)} onStudentCreated={fetchStudent} id={id} />}
 
       <div className="relative overflow-x-auto bg-white text-black">
         <table className="w-full text-sm text-left text-black">
@@ -86,11 +91,27 @@ const Students = () => {
                 <td className="px-6 py-4">{handleGender(row.gender)}</td>
                 <td className="px-6 py-4">{row.dob}</td>
                 <td className="px-6 py-4">{row.phone}</td>
-                <td className="px-6 py-4">{handleStatus(row.status) }</td>
-                <td className='px-6 py-4' ><button onClick={()=>{
-                  setShowModel(true)
-                  setId(row.id)
-                  }}><FaPencilAlt/></button> </td>
+                <td className="px-6 py-4">{handleStatus(row.status)}</td>
+                <td className='px-6 py-4' >
+                  <div className="flex gap-3">
+                    <button onClick={() => {
+                      setShowModel(true)
+                      setId(row.id)
+                    }}><FaPencilAlt size={20}/>
+                    </button>
+                    <button onClick={() => {
+                      setShowModel(true)
+                      setId(row.id)
+                    }}><BiSolidShow size={25}/>
+                    </button>
+                    <button onClick={() => {
+                      setShowModel(true)
+                      setId(row.id)
+                    }}><IoMdArchive size={20}/>
+                    </button>
+
+                  </div>
+                </td>
               </tr>
             ))}
           </tbody>
@@ -115,8 +136,8 @@ const Students = () => {
                 <button
                   onClick={() => paginate(number)}
                   className={`flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 ${currentPage === number
-                      ? 'text-blue-600 border-blue-300 bg-blue-100 font-semibold'
-                      : ''
+                    ? 'text-blue-600 border-blue-300 bg-blue-100 font-semibold'
+                    : ''
                     }`}
                 >
                   {number}
