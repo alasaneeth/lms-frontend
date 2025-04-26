@@ -11,10 +11,10 @@ class StudentService {
       throw e.message;
     }
   };
-
-  edit = async (customer: any, code: string) => {
+  
+  edit = async (student: any, id: number) => {
     try {
-      await axiosInstance.put(`customer/${code}`, customer);
+      await axiosInstance.put(`students/${id}`, student);
     } catch (e: any) {
       const { message } = e.response?.data || {};
       if (message?.errorInfo) throw message.errorInfo[2];
