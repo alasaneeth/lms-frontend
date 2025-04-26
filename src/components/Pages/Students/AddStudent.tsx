@@ -21,6 +21,7 @@ type FormData = {
   username: string;
   password: string;
   userRole: number;
+  confirmPassword:string
 };
 
 const AddStudent = ({ onClose, onStudentCreated, id }: { onClose: () => void; onStudentCreated: () => void, id: any }) => {
@@ -59,6 +60,7 @@ const AddStudent = ({ onClose, onStudentCreated, id }: { onClose: () => void; on
         username: "",
         password: "",
         userRole: USER_ROLE.STUDENT,
+        confirmPassword:"",
       };
       setInitValue(defaultData);
       reset(defaultData); // reset to default if no id
@@ -67,6 +69,11 @@ const AddStudent = ({ onClose, onStudentCreated, id }: { onClose: () => void; on
 
   const onSubmit = async (data: FormData) => {
     console.log("Form submitted:", data)
+
+    if(data.password != data.confirmPassword) {
+      toast.error("Please check password")
+      return
+    }
 
     const response = await StudentService.create(data);
     console.log(response);
@@ -159,9 +166,6 @@ const AddStudent = ({ onClose, onStudentCreated, id }: { onClose: () => void; on
               />
               {errors.phone && <p className="text-red-500">{errors.phone.message}</p>}
             </div>
-
-
-
           </div>
           <div className="flex flex-wrap gap-2">
             <div className="flex-1">
@@ -205,29 +209,37 @@ const AddStudent = ({ onClose, onStudentCreated, id }: { onClose: () => void; on
           </div>
 
           {!id && (
-             <div className="flex flex-wrap gap-2">
-             <div className="flex-1">
-               <label className="block mb-1 font-medium">Username</label>
-               <input
-                 {...register("username", id ? {} : { required: "Username is required" })}
-                 className="w-full border rounded-xl px-3 py-2"
-               />
-               {errors.username && <p className="text-red-500">{errors.username.message}</p>}
-             </div>
-             <div className="flex-1">
-               <label className="block mb-1 font-medium">Password</label>
-               <input
-                 {...register("password", id ? {} : { required: "Password is required" })}
-                 className="w-full border rounded-xl px-3 py-2"
-               />
-               {errors.password && <p className="text-red-500">{errors.password.message}</p>}
-             </div>
-           </div>
+            <>
+              <div className="flex flex-wrap gap-2">
+                <div className="flex-1">
+                  <label className="block mb-1 font-medium">Username</label>
+                  <input
+                    {...register("username", id ? {} : { required: "Username is required" })}
+                    className="w-full border rounded-xl px-3 py-2"
+                  />
+                  {errors.username && <p className="text-red-500">{errors.username.message}</p>}
+                </div>
+                <div className="flex-1">
+                  <label className="block mb-1 font-medium">Password</label>
+                  <input
+                    {...register("password", id ? {} : { required: "Password is required" })}
+                    className="w-full border rounded-xl px-3 py-2"
+                  />
+                  {errors.password && <p className="text-red-500">{errors.password.message}</p>}
+                </div>
+                <div className="flex-1">
+                  <label className="block mb-1 font-medium">Confirm Password</label>
+                  <input
+                    {...register("confirmPassword", id ? {} : { required: "confirm Password is required" })}
+                    className="w-full border rounded-xl px-3 py-2"
+                  />
+                  {errors.confirmPassword && <p className="text-red-500">{errors.confirmPassword.message}</p>}
+                </div>
+              </div>
+          
+            </>
+
           )}
-
-         
-
-
 
           <div className='flex justify-end'>
 
@@ -238,9 +250,6 @@ const AddStudent = ({ onClose, onStudentCreated, id }: { onClose: () => void; on
               Submit
             </button>
           </div>
-
-
-
         </form>
 
       </div>
