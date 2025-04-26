@@ -69,15 +69,18 @@ const AddStudent = ({ onClose, onStudentCreated, id }: { onClose: () => void; on
 
   const onSubmit = async (data: FormData) => {
     console.log("Form submitted:", data)
-
-    if(data.password != data.confirmPassword) {
-      toast.error("Please check password")
-      return
+    if(id){
+      await StudentService.edit(data,id);
+      toast.success("Student Updated successfully")
+    }else {
+      if(data.password != data.confirmPassword) {
+        toast.error("Please check password")
+        return
+      }
+      const response = await StudentService.create(data);
+      console.log(response);
+      toast.success("Student created successfully")
     }
-
-    const response = await StudentService.create(data);
-    console.log(response);
-    toast.success("Student created successfully")
     onStudentCreated();
     onClose();
 
