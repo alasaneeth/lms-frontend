@@ -22,7 +22,7 @@ class StudentService {
     }
   };
 
-  get = async (id: string) => {
+  get = async (id: number) => {
     try {
       const response = await axiosInstance.get(`students/${id}`);
       return response.data.student;

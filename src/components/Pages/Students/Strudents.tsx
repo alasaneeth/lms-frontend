@@ -15,8 +15,8 @@ const Students = () => {
   const [currentPage, setCurrentPage] = useState(1);  // Tracks the current page
   const [rowsPerPage] = useState(6);  // Number of rows to display per page
   const [showModel, setShowModel] = useState(false)
-  const [editShow, setEditShow] = useState(false)
-  const [viewShow, setViewShow] = useState(false);
+  const [editShow,setEditShow] = useState(false)
+  const [viewShow,setViewShow] = useState(false);
   const [id, setId] = useState(null);
 
   const fetchStudent = async () => {
@@ -100,19 +100,19 @@ const Students = () => {
                     <button onClick={() => {
                       setShowModel(true)
                       setId(row.id)
-                    }}><FaPencilAlt size={20} />
+                    }}><FaPencilAlt size={20}/>
                     </button>
                     <button onClick={() => {
-                      setId(row.id);         // set id first
-                      setViewShow(true);     // then show the view popup
-                    }}>
-                      <BiSolidShow size={25} />
-                    </button>
+  setId(row.id);         // set id first
+  setViewShow(true);     // then show the view popup
+}}>
+  <BiSolidShow size={25} />
+</button>
 
                     <button onClick={() => {
                       setViewShow(true)
                       setId(row.id)
-                    }}><IoMdArchive size={20} />
+                    }}><IoMdArchive size={20}/>
                     </button>
 
                   </div>

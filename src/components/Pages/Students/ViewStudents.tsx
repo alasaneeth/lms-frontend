@@ -1,6 +1,18 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import StudentService from '../../../services/StudentService/Student.service';
 
-const ViewStudents = ({ onClose, id }: { onClose: () => void, id: number | null }) => {
+const ViewStudents = ({ onClose, id }: { onClose: () => void, id: any | null }) => {
+
+    const [data,setData] = useState({});
+
+    useEffect(()=> {
+        const fetchStudentById = async () => {
+            const res = await StudentService.get(id);
+            setData(res)
+        }
+        fetchStudentById();
+    },[id])
+    
     return (
     <div className="fixed top-0 left-0 w-full h-full z-50 flex justify-center items-center bg-black/50 backdrop-blur-sm overflow-y-auto " >
          <div className="relative p-4 w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-white rounded-lg shadow-lg">
