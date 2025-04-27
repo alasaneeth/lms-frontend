@@ -5,6 +5,7 @@ import AddStudent from './AddStudent';
 import { FaPencilAlt } from 'react-icons/fa';
 import { BiSolidShow } from "react-icons/bi";
 import { IoMdArchive } from "react-icons/io";
+import ViewStudents from './ViewStudents';
 
 
 
@@ -14,6 +15,8 @@ const Students = () => {
   const [currentPage, setCurrentPage] = useState(1);  // Tracks the current page
   const [rowsPerPage] = useState(6);  // Number of rows to display per page
   const [showModel, setShowModel] = useState(false)
+  const [editShow, setEditShow] = useState(false)
+  const [viewShow, setViewShow] = useState(false);
   const [id, setId] = useState(null);
 
   const fetchStudent = async () => {
@@ -69,7 +72,7 @@ const Students = () => {
       </button>
 
       {showModel && <AddStudent onClose={() => setShowModel(false)} onStudentCreated={fetchStudent} id={id} />}
-
+      {viewShow && <ViewStudents onClose={() => setViewShow(false)} id={id} />}
       <div className="relative overflow-x-auto bg-white text-black">
         <table className="w-full text-sm text-left text-black">
           <thead className="text-xs text-black uppercase bg-gray-100">
@@ -97,17 +100,19 @@ const Students = () => {
                     <button onClick={() => {
                       setShowModel(true)
                       setId(row.id)
-                    }}><FaPencilAlt size={20}/>
+                    }}><FaPencilAlt size={20} />
                     </button>
                     <button onClick={() => {
-                      setShowModel(true)
-                      setId(row.id)
-                    }}><BiSolidShow size={25}/>
+                      setId(row.id);         // set id first
+                      setViewShow(true);     // then show the view popup
+                    }}>
+                      <BiSolidShow size={25} />
                     </button>
+
                     <button onClick={() => {
-                      setShowModel(true)
+                      setViewShow(true)
                       setId(row.id)
-                    }}><IoMdArchive size={20}/>
+                    }}><IoMdArchive size={20} />
                     </button>
 
                   </div>
