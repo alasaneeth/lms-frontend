@@ -38,7 +38,7 @@ const ViewStudents = ({ onClose, id }: { onClose: () => void, id: any | null }) 
                         X
                     </button>
                 </div>
-                <h2 className="text-2xl font-bold mb-4">STUDENT REGISTRATION FORM</h2>
+                <h2 className="text-2xl font-bold mb-4">STUDENT DETAILS</h2>
                 <div className="grid grid-cols-2 gap-4">
 
                     {data && (
