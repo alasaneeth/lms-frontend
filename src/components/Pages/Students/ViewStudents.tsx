@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import StudentService from '../../../services/StudentService/Student.service';
 import image from "../../../assets/images.jpeg"
+import { handleGender, handleStatus } from '../../ReuableFunctions/SwitchBaedFunctions';
 
 const ViewStudents = ({ onClose, id }: { onClose: () => void, id: any | null }) => {
 
     interface Student {
         studentId: string;
         fullName: string;
-        gender: string;
+        gender: number;
         dob: string;
         phone: string;
         email: string;
         address: string;
-        status: string;
+        status: number;
         enrolmentDate: string;
         widthrowelDate: string;
     }
@@ -53,7 +54,7 @@ const ViewStudents = ({ onClose, id }: { onClose: () => void, id: any | null }) 
                                 </div>
                                 <div>
                                     <dt className="font-semibold">Gender:</dt>
-                                    <dd>{data.gender}</dd>
+                                    <dd>{handleGender(data.gender) }</dd>
                                 </div>
                                 <div>
                                     <dt className="font-semibold">DOB:</dt>
@@ -73,7 +74,7 @@ const ViewStudents = ({ onClose, id }: { onClose: () => void, id: any | null }) 
                                 </div>
                                 <div>
                                     <dt className="font-semibold">Status:</dt>
-                                    <dd>{data.status}</dd>
+                                    <dd>{handleStatus(data.status)}</dd>
                                 </div>
                                 <div>
                                     <dt className="font-semibold">Enrolment Date:</dt>
