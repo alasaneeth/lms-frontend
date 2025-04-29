@@ -109,12 +109,6 @@ const Students = () => {
                       <BiSolidShow size={25} />
                     </button>
 
-                    <button className="cursor-pointer" onClick={() => {
-                      setViewShow(true)
-                      setId(row.id)
-                    }}><IoMdArchive size={20} />
-                    </button>
-
                   </div>
                 </td>
               </tr>

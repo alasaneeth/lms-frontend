@@ -5,5 +5,4 @@ export const STATUS = {
     RESIGNED:3,
     SUSSPENDED:4,
     TERMINATED:5,
-   
 }
