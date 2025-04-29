@@ -24,7 +24,7 @@ type FormData = {
   confirmPassword:string
 };
 
-const AddStudent = ({ onClose, onStudentCreated, id }: { onClose: () => void; onStudentCreated: () => void, id: any }) => {
+const AddStudent = ({ onClose, onStudentCreated, id,setId }: { onClose: () => void; onStudentCreated: () => void, id: any,setId:any }) => {
 
   const [initValue, setInitValue] = useState<FormData | null>(null);
 
@@ -91,7 +91,10 @@ const AddStudent = ({ onClose, onStudentCreated, id }: { onClose: () => void; on
       <div className="relative p-4 w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-white rounded-lg shadow-lg">
         <div className='flex justify-end'>
           <button
-            onClick={() => onClose()}>
+            onClick={() =>{
+              setId(null) // Reset form fields to default
+              onClose()}
+            } >
             X
           </button>
         </div>

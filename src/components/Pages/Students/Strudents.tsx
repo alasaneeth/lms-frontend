@@ -71,7 +71,7 @@ const Students = () => {
         Add Student
       </button>
 
-      {showModel && <AddStudent onClose={() => setShowModel(false)} onStudentCreated={fetchStudent} id={id} />}
+      {showModel && <AddStudent onClose={() => setShowModel(false)} onStudentCreated={fetchStudent} id={id} setId={setId} />}
       {viewShow && <ViewStudents onClose={() => setViewShow(false)} id={id} />}
       <div className="relative overflow-x-auto bg-white text-black">
         <table className="w-full text-sm text-left text-black">
