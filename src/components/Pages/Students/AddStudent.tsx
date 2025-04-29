@@ -71,6 +71,7 @@ const AddStudent = ({ onClose, onStudentCreated, id,setId }: { onClose: () => vo
     console.log("Form submitted:", data)
     if(id){
       await StudentService.edit(data,id);
+      setId(null)
       toast.success("Student Updated successfully")
     }else {
       if(data.password != data.confirmPassword) {
@@ -79,6 +80,7 @@ const AddStudent = ({ onClose, onStudentCreated, id,setId }: { onClose: () => vo
       }
       const response = await StudentService.create(data);
       console.log(response);
+      setId(null)
       toast.success("Student created successfully")
     }
     onStudentCreated();

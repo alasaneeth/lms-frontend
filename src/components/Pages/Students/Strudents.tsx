@@ -77,6 +77,7 @@ const Students = () => {
         <table className="w-full text-sm text-left text-black">
           <thead className="text-xs text-black uppercase bg-gray-100">
             <tr>
+              <th scope="col" className="px-1 py-1">#</th>
               <th scope="col" className="px-6 py-3">STUDENT ID</th>
               <th scope="col" className="px-6 py-3">Name</th>
               <th scope="col" className="px-6 py-3">Gender</th>
@@ -89,6 +90,7 @@ const Students = () => {
           <tbody>
             {currentRows.map((row: any, index: number) => (
               <tr key={index} className="bg-white border-b border-gray-300">
+                <td scope="col" className="px-1 py-1">{index+1}.</td>
                 <td className="px-6 py-4">{row.studentId}</td>
                 <td className="px-6 py-4">{row.fullName}</td>
                 <td className="px-6 py-4">{handleGender(row.gender)}</td>
