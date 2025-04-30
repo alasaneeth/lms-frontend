@@ -18,6 +18,7 @@ const Students = () => {
   const [editShow, setEditShow] = useState(false)
   const [viewShow, setViewShow] = useState(false);
   const [id, setId] = useState(null);
+  const [searchValue,setSearchValue] = useState("");
 
   const fetchStudent = async () => {
     const res = await StudentService.getAll();
@@ -29,7 +30,8 @@ const Students = () => {
   }, []);
 
   const handleSearch = async  () => {
-    alert("Hellow World!")
+    const res = await StudentService.search(searchValue);
+    setData(res)
   }
 
   // Calculate the index of the first and last rows for the current page
@@ -69,8 +71,8 @@ const Students = () => {
         <input
           type="text"
           placeholder="Search by Name or ID"
-         // value={searchQuery}
-          //onChange={(e) => setSearchQuery(e.target.value)}
+          value={searchValue}
+          onChange={(e) => setSearchValue(e.target.value)}
           className="border border-gray-300 rounded-3xl px-4 py-2 w-64"
 
           onKeyDown={(e:any)=> {

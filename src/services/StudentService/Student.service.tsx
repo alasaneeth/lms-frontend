@@ -42,8 +42,8 @@ class StudentService {
 
   search = async (keyword: string) => {
     try {
-      const response = await axiosInstance.get(`gift-voucher-search/${keyword}`);
-      return response.data.giftVocuher;
+      const response = await axiosInstance.get(`students-search/${keyword}`);
+      return response.data.students;
     } catch (e: any) {
       throw e.message;
     }
