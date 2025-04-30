@@ -70,10 +70,10 @@ const Students = () => {
       <div className="flex gap-2 mb-4">
         <input
           type="text"
-          placeholder="Search by Name or ID"
+          placeholder="search here"
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}
-          className="border border-gray-300 rounded-3xl px-4 py-2 w-64"
+          className="border border-gray-300 rounded-3xl px-4 py-2 w-50"
 
           onKeyDown={(e:any)=> {
             if(e.key == "Enter") {
@@ -81,6 +81,14 @@ const Students = () => {
             }
           }}
         /> 
+        <button className='bg-red-400 text-white px-4 py-2 rounded-2xl text-sm hover:bg-gray-500'
+        onClick={()=> {
+          setSearchValue("");
+          fetchStudent();
+        }}
+        >
+          Clear
+        </button>
         </div>
       <button
         onClick={() => setShowModel(true)}
