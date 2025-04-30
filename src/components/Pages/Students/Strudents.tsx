@@ -71,7 +71,7 @@ const Students = () => {
           placeholder="Search by Name or ID"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="border border-gray-300 rounded px-4 py-2 w-64"
+          className="border border-gray-300 rounded-3xl px-4 py-2 w-64"
         />
         <button
           onClick={handleSearch}
