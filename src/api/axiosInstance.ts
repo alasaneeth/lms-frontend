@@ -21,7 +21,7 @@ axiosInstance.interceptors.response.use(
   (error) => {
     if (error.response && (error.response.status === 401 || error.response.status === 403 || error.response.status === 400)) {
       localStorage.clear();
-      window.location.href = "/";
+      window.location.href =  "/";
     }
     return Promise.reject(error);
   }
