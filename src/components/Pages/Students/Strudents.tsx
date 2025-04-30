@@ -18,7 +18,7 @@ const Students = () => {
   const [editShow, setEditShow] = useState(false)
   const [viewShow, setViewShow] = useState(false);
   const [id, setId] = useState(null);
-  const [searchValue,setSearchValue] = useState("");
+  const [searchValue, setSearchValue] = useState("");
 
   const fetchStudent = async () => {
     const res = await StudentService.getAll();
@@ -29,7 +29,7 @@ const Students = () => {
     fetchStudent();
   }, []);
 
-  const handleSearch = async  () => {
+  const handleSearch = async () => {
     const res = await StudentService.search(searchValue);
     setData(res)
   }
@@ -67,38 +67,43 @@ const Students = () => {
   return (
     <>
       <h5 className="text-xl font-bold uppercase mb-4">Student</h5>
-      <div className="flex gap-2 mb-4">
-        <input
-          type="text"
-          placeholder="search here"
-          value={searchValue}
-          onChange={(e) => setSearchValue(e.target.value)}
-          className="border border-gray-300 rounded-3xl px-4 py-2 w-50"
-
-          onKeyDown={(e:any)=> {
-            if(e.key == "Enter") {
-              handleSearch();
-            }
-          }}
-        /> 
-        <button className='bg-red-400 text-white px-4 py-2 rounded-2xl text-sm hover:bg-gray-500'
-        onClick={()=> {
-          setSearchValue("");
-          fetchStudent();
-        }}
+      <div className="flex justify-between items-center mb-4">
+        <button
+          onClick={() => setShowModel(true)}
+          data-modal-target="crud-modal"
+          data-modal-toggle="crud-modal"
+          className="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mb-4"
+          type="button"
         >
-          Clear
+          Add Student
         </button>
+
+        <div className="flex gap-2 mb-4">
+          <input
+            type="text"
+            placeholder="search here"
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
+            className="border border-gray-300 rounded-3xl px-4 py-2 w-50"
+
+            onKeyDown={(e: any) => {
+              if (e.key == "Enter") {
+                handleSearch();
+              }
+            }}
+          />
+          <button className='bg-red-400 text-white px-4 py-2 rounded-2xl text-sm hover:bg-gray-500'
+            onClick={() => {
+              setSearchValue("");
+              fetchStudent();
+            }}
+          >
+            Reset
+          </button>
         </div>
-      <button
-        onClick={() => setShowModel(true)}
-        data-modal-target="crud-modal"
-        data-modal-toggle="crud-modal"
-        className="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mb-4"
-        type="button"
-      >
-        Add Student
-      </button>
+
+      </div>
+
 
       {showModel && <AddStudent onClose={() => setShowModel(false)} onStudentCreated={fetchStudent} id={id} setId={setId} />}
       {viewShow && <ViewStudents onClose={() => setViewShow(false)} id={id} />}
@@ -119,7 +124,7 @@ const Students = () => {
           <tbody>
             {currentRows.map((row: any, index: number) => (
               <tr key={index} className="bg-white border-b border-gray-300">
-                <td scope="col" className="px-1 py-1">{index+1}.</td>
+                <td scope="col" className="px-1 py-1">{index + 1}.</td>
                 <td className="px-6 py-4">{row.studentId}</td>
                 <td className="px-6 py-4">{row.fullName}</td>
                 <td className="px-6 py-4">{handleGender(row.gender)}</td>
