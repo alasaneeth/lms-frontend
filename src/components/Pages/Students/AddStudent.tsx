@@ -6,7 +6,6 @@ import StudentService from '../../../services/StudentService/Student.service';
 import { USER_ROLE } from '../../Constants/UserRoles';
 import toast from 'react-hot-toast';
 
-
 type FormData = {
   fullName: string;
   gender: number;
@@ -21,10 +20,10 @@ type FormData = {
   username: string;
   password: string;
   userRole: number;
-  confirmPassword:string
+  confirmPassword: string;
 };
 
-const AddStudent = ({ onClose, onStudentCreated, id,setId }: { onClose: () => void; onStudentCreated: () => void, id: any,setId:any }) => {
+const AddStudent = ({ onClose, onStudentCreated, id, setId }: { onClose: () => void; onStudentCreated: () => void, id: any, setId: any }) => {
 
   const [initValue, setInitValue] = useState<FormData | null>(null);
 
@@ -34,7 +33,6 @@ const AddStudent = ({ onClose, onStudentCreated, id,setId }: { onClose: () => vo
     reset,
     formState: { errors },
   } = useForm<FormData>();
-
 
   useEffect(() => {
     const fetchStudentById = async () => {
@@ -60,7 +58,7 @@ const AddStudent = ({ onClose, onStudentCreated, id,setId }: { onClose: () => vo
         username: "",
         password: "",
         userRole: USER_ROLE.STUDENT,
-        confirmPassword:"",
+        confirmPassword: "",
       };
       setInitValue(defaultData);
       reset(defaultData); // reset to default if no id
@@ -69,12 +67,12 @@ const AddStudent = ({ onClose, onStudentCreated, id,setId }: { onClose: () => vo
 
   const onSubmit = async (data: FormData) => {
     console.log("Form submitted:", data)
-    if(id){
-      await StudentService.edit(data,id);
+    if (id) {
+      await StudentService.edit(data, id);
       setId(null)
       toast.success("Student Updated successfully")
-    }else {
-      if(data.password != data.confirmPassword) {
+    } else {
+      if (data.password != data.confirmPassword) {
         toast.error("Please check password")
         return
       }
@@ -85,132 +83,129 @@ const AddStudent = ({ onClose, onStudentCreated, id,setId }: { onClose: () => vo
     }
     onStudentCreated();
     onClose();
-
   };
 
   return (
     <div className="fixed top-0 left-0 w-full h-full z-50 flex justify-center items-center bg-black/50 backdrop-blur-sm overflow-y-auto">
-      <div className="relative p-4 w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-white rounded-lg shadow-lg">
+      <div className="relative p-2 w-full max-w-xs md:max-w-md lg:max-w-2xl max-h-[90vh] overflow-y-auto bg-white rounded-lg shadow-lg">
         <div className='flex justify-end'>
           <button
-            onClick={() =>{
+            onClick={() => {
               setId(null) // Reset form fields to default
-              onClose()}
-            } >
+              onClose()
+            }}
+            className="text-lg font-bold"
+          >
             X
           </button>
         </div>
 
-        <h2 className="text-2xl font-bold mb-4">STUDENT REGISTRATION FORM</h2>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          <div className="flex flex-wrap gap-2">
+        <h2 className="text-lg md:text-xl font-bold mb-2 text-center">STUDENT REGISTRATION FORM</h2>
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
+          <div className="flex flex-col gap-2 md:flex-row md:gap-2">
             <div className="flex-1">
-              <label className="block mb-1 font-medium">Student ID</label>
+              <label className="block mb-1 font-medium text-xs md:text-sm">Student ID</label>
               <input
-                {...register("studentId", { required: "student Id is required" })}
-                className="w-full border rounded-xl px-3 py-2"
+                {...register("studentId", { required: "Student Id is required" })}
+                className="w-full border rounded-xl px-2 py-1 text-xs md:text-sm"
               />
-              {errors.studentId && <p className="text-red-500">{errors.studentId.message}</p>}
+              {errors.studentId && <p className="text-red-500 text-xs">{errors.studentId.message}</p>}
             </div>
             <div className="flex-1">
-              <label className="block mb-1 font-medium">Full Name</label>
+              <label className="block mb-1 font-medium text-xs md:text-sm">Full Name</label>
               <input
                 {...register("fullName", { required: "Full name is required" })}
-                className="w-full border rounded-xl px-3 py-2"
+                className="w-full border rounded-xl px-2 py-1 text-xs md:text-sm"
               />
-              {errors.fullName && <p className="text-red-500">{errors.fullName.message}</p>}
+              {errors.fullName && <p className="text-red-500 text-xs">{errors.fullName.message}</p>}
             </div>
-
-
           </div>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-col gap-2 md:flex-row md:gap-2">
             <div className="flex-1">
-              <label className="block mb-1 font-medium">Gender</label>
+              <label className="block mb-1 font-medium text-xs md:text-sm">Gender</label>
               <select
                 {...register("gender", { required: "Gender is required" })}
-                className="w-full border rounded-xl px-3 py-2"
+                className="w-full border rounded-xl px-2 py-1 text-xs md:text-sm"
               >
                 <option value="">Select gender</option>
                 <option value={GENDER.MALE}>Male</option>
                 <option value={GENDER.FEMALE}>Female</option>
                 <option value={GENDER.OTHER}>Other</option>
               </select>
-              {errors.gender && <p className="text-red-500">{errors.gender.message}</p>}
+              {errors.gender && <p className="text-red-500 text-xs">{errors.gender.message}</p>}
             </div>
             <div className="flex-1">
-              <label className="block mb-1 font-medium">Date of Birth</label>
+              <label className="block mb-1 font-medium text-xs md:text-sm">Date of Birth</label>
               <input
                 type="date"
                 {...register("dob", { required: "Date of birth is required" })}
-                className="w-full border rounded-xl px-3 py-2"
+                className="w-full border rounded-xl px-2 py-1 text-xs md:text-sm"
               />
-              {errors.dob && <p className="text-red-500">{errors.dob.message}</p>}
+              {errors.dob && <p className="text-red-500 text-xs">{errors.dob.message}</p>}
             </div>
-
           </div>
 
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-col gap-2 md:flex-row md:gap-2">
             <div className="flex-1">
-              <label className="block mb-1 font-medium">Status</label>
+              <label className="block mb-1 font-medium text-xs md:text-sm">Status</label>
               <select
                 {...register("status", { required: "Status is required" })}
-                className="w-full border rounded-xl px-3 py-2"
+                className="w-full border rounded-xl px-2 py-1 text-xs md:text-sm"
               >
                 <option value="">Select status</option>
                 <option value={STATUS.ACTIVE}>Active</option>
                 <option value={STATUS.INACTIVE}>Inactive</option>
                 <option value={STATUS.DROP_OUT}>Drop Out</option>
-                <option value={STATUS.SUSSPENDED}>SUSSPENDED</option>
-                <option value={STATUS.TERMINATED}>TERMINATED</option>
+                <option value={STATUS.SUSSPENDED}>Suspended</option>
+                <option value={STATUS.TERMINATED}>Terminated</option>
               </select>
-              {errors.status && <p className="text-red-500">{errors.status.message}</p>}
+              {errors.status && <p className="text-red-500 text-xs">{errors.status.message}</p>}
             </div>
             <div className="flex-1">
-              <label className="block mb-1 font-medium">Phone</label>
+              <label className="block mb-1 font-medium text-xs md:text-sm">Phone</label>
               <input
                 type="tel"
                 {...register("phone", { required: "Phone number is required" })}
-                className="w-full border rounded-xl px-3 py-2"
+                className="w-full border rounded-xl px-2 py-1 text-xs md:text-sm"
               />
-              {errors.phone && <p className="text-red-500">{errors.phone.message}</p>}
+              {errors.phone && <p className="text-red-500 text-xs">{errors.phone.message}</p>}
             </div>
           </div>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-col gap-2 md:flex-row md:gap-2">
             <div className="flex-1">
-              <label className="block mb-1 font-medium">Address</label>
+              <label className="block mb-1 font-medium text-xs md:text-sm">Address</label>
               <input
                 {...register("address", { required: "Address is required" })}
-                className="w-full border rounded-xl px-3 py-2"
+                className="w-full border rounded-xl px-2 py-1 text-xs md:text-sm"
               />
-              {errors.fullName && <p className="text-red-500">{errors.fullName.message}</p>}
+              {errors.address && <p className="text-red-500 text-xs">{errors.address.message}</p>}
             </div>
             <div className="flex-1">
-              <label className="block mb-1 font-medium">Email</label>
+              <label className="block mb-1 font-medium text-xs md:text-sm">Email</label>
               <input
                 type="email"
                 {...register("email", { required: "Email is required" })}
-                className="w-full border rounded-xl px-3 py-2"
+                className="w-full border rounded-xl px-2 py-1 text-xs md:text-sm"
               />
-              {errors.email && <p className="text-red-500">{errors.email.message}</p>}
+              {errors.email && <p className="text-red-500 text-xs">{errors.email.message}</p>}
             </div>
-
           </div>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-col gap-2 md:flex-row md:gap-2">
             <div className="flex-1">
-              <label className="block mb-1 font-medium">Enrolment Date</label>
+              <label className="block mb-1 font-medium text-xs md:text-sm">Enrolment Date</label>
               <input
                 type="date"
                 {...register("enrolmentDate", { required: "Enrolment date is required" })}
-                className="w-full border rounded-xl px-3 py-2"
+                className="w-full border rounded-xl px-2 py-1 text-xs md:text-sm"
               />
-              {errors.enrolmentDate && <p className="text-red-500">{errors.enrolmentDate.message}</p>}
+              {errors.enrolmentDate && <p className="text-red-500 text-xs">{errors.enrolmentDate.message}</p>}
             </div>
             <div className="flex-1">
-              <label className="block mb-1 font-medium">widthrowel Date</label>
+              <label className="block mb-1 font-medium text-xs md:text-sm">Withdrawal Date</label>
               <input
                 type="date"
                 {...register("widthrowelDate")}
-                className="w-full border rounded-xl px-3 py-2"
+                className="w-full border rounded-xl px-2 py-1 text-xs md:text-sm"
               />
               {/* {errors.widthrowelDate && <p className="text-red-500">{errors.widthrowelDate.message}</p>} */}
             </div>
@@ -218,48 +213,44 @@ const AddStudent = ({ onClose, onStudentCreated, id,setId }: { onClose: () => vo
 
           {!id && (
             <>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-col gap-2 md:flex-row md:gap-2">
                 <div className="flex-1">
-                  <label className="block mb-1 font-medium">Username</label>
+                  <label className="block mb-1 font-medium text-xs md:text-sm">Username</label>
                   <input
                     {...register("username", id ? {} : { required: "Username is required" })}
-                    className="w-full border rounded-xl px-3 py-2"
+                    className="w-full border rounded-xl px-2 py-1 text-xs md:text-sm"
                   />
-                  {errors.username && <p className="text-red-500">{errors.username.message}</p>}
+                  {errors.username && <p className="text-red-500 text-xs">{errors.username.message}</p>}
                 </div>
                 <div className="flex-1">
-                  <label className="block mb-1 font-medium">Password</label>
+                  <label className="block mb-1 font-medium text-xs md:text-sm">Password</label>
                   <input
                     {...register("password", id ? {} : { required: "Password is required" })}
-                    className="w-full border rounded-xl px-3 py-2"
+                    className="w-full border rounded-xl px-2 py-1 text-xs md:text-sm"
                   />
-                  {errors.password && <p className="text-red-500">{errors.password.message}</p>}
+                  {errors.password && <p className="text-red-500 text-xs">{errors.password.message}</p>}
                 </div>
                 <div className="flex-1">
-                  <label className="block mb-1 font-medium">Confirm Password</label>
+                  <label className="block mb-1 font-medium text-xs md:text-sm">Confirm Password</label>
                   <input
-                    {...register("confirmPassword", id ? {} : { required: "confirm Password is required" })}
-                    className="w-full border rounded-xl px-3 py-2"
+                    {...register("confirmPassword", id ? {} : { required: "Confirm Password is required" })}
+                    className="w-full border rounded-xl px-2 py-1 text-xs md:text-sm"
                   />
-                  {errors.confirmPassword && <p className="text-red-500">{errors.confirmPassword.message}</p>}
+                  {errors.confirmPassword && <p className="text-red-500 text-xs">{errors.confirmPassword.message}</p>}
                 </div>
               </div>
-          
             </>
-
           )}
 
-          <div className='flex justify-end'>
-
+          <div className='flex justify-center md:justify-end mt-2'>
             <button
               type="submit"
-              className=" bg-blue-600 text-white font-semibold py-2 px-4 rounded-xl hover:bg-blue-700"
+              className="bg-blue-600 text-white font-semibold py-1 px-3 rounded-xl hover:bg-blue-700 w-full md:w-auto text-xs md:text-sm"
             >
               Submit
             </button>
           </div>
         </form>
-
       </div>
     </div>
   );
