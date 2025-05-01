@@ -3,7 +3,7 @@ import { RouteObject } from 'react-router-dom';
 import PrivateRoute from './PriveateRoute';
 
 // Lazy loaded components
-const Student = lazy(() => import('../Pages/Students/Strudents'));
+const Student = lazy(() => import('../Pages/Students/Students'));
 const Tutors = lazy(() => import('../Pages/Tutors/Tutors'));
 const Results = lazy(() => import('../Pages/Results/results'));
 
