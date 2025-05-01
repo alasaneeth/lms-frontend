@@ -4,18 +4,13 @@ import { handleGender, handleStatus } from '../../ReuableFunctions/SwitchBaedFun
 import AddStudent from './AddStudent';
 import { FaPencilAlt } from 'react-icons/fa';
 import { BiSolidShow } from "react-icons/bi";
-import { IoMdArchive } from "react-icons/io";
 import ViewStudents from './ViewStudents';
-
-
-
 
 const Students = () => {
   const [data, setData] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);  // Tracks the current page
-  const [rowsPerPage] = useState(6);  // Number of rows to display per page
-  const [showModel, setShowModel] = useState(false)
-  const [editShow, setEditShow] = useState(false)
+  const [currentPage, setCurrentPage] = useState(1);
+  const [rowsPerPage] = useState(6);
+  const [showModel, setShowModel] = useState(false);
   const [viewShow, setViewShow] = useState(false);
   const [id, setId] = useState(null);
   const [searchValue, setSearchValue] = useState("");
@@ -31,26 +26,20 @@ const Students = () => {
 
   const handleSearch = async () => {
     const res = await StudentService.search(searchValue);
-    setData(res)
-  }
+    setData(res);
+  };
 
-  // Calculate the index of the first and last rows for the current page
   const indexOfLastRow = currentPage * rowsPerPage;
   const indexOfFirstRow = indexOfLastRow - rowsPerPage;
-
-  // Get the current rows for the current page
   const currentRows = data.slice(indexOfFirstRow, indexOfLastRow);
 
-  // Handle page change
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
-  // Calculate the total number of pages
   const pageNumbers = [];
   for (let i = 1; i <= Math.ceil(data.length / rowsPerPage); i++) {
     pageNumbers.push(i);
   }
 
-  // Handle previous and next page navigation
   const goToNextPage = () => {
     if (currentPage < pageNumbers.length) {
       setCurrentPage(currentPage + 1);
@@ -63,36 +52,30 @@ const Students = () => {
     }
   };
 
-
   return (
     <>
       <h5 className="text-xl font-bold uppercase mb-4">Student</h5>
-      <div className="flex justify-between items-center mb-4">
+      <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-4">
         <button
           onClick={() => setShowModel(true)}
-          data-modal-target="crud-modal"
-          data-modal-toggle="crud-modal"
-          className="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mb-4"
-          type="button"
+          className="w-full md:w-auto text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
         >
           Add Student
         </button>
 
-        <div className="flex gap-2 mb-4">
+        <div className="flex flex-col sm:flex-row gap-2 w-full md:w-auto">
           <input
             type="text"
-            placeholder="search here"
+            placeholder="Search here"
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
-            className="border border-gray-300 rounded-3xl px-4 py-2 w-50"
-
             onKeyDown={(e: any) => {
-              if (e.key == "Enter") {
-                handleSearch();
-              }
+              if (e.key === "Enter") handleSearch();
             }}
+            className="border border-gray-300 rounded-3xl px-4 py-2 w-full sm:w-auto"
           />
-          <button className='bg-red-400 text-white px-4 py-2 rounded-2xl text-sm hover:bg-gray-500'
+          <button
+            className="bg-red-400 text-white px-4 py-2 rounded-2xl text-sm hover:bg-gray-500"
             onClick={() => {
               setSearchValue("");
               fetchStudent();
@@ -101,50 +84,43 @@ const Students = () => {
             Reset
           </button>
         </div>
-
       </div>
-
 
       {showModel && <AddStudent onClose={() => setShowModel(false)} onStudentCreated={fetchStudent} id={id} setId={setId} />}
       {viewShow && <ViewStudents onClose={() => setViewShow(false)} id={id} />}
-      <div className="relative overflow-x-auto bg-white text-black">
-        <table className="w-full text-sm text-left text-black">
+
+      <div className="overflow-x-auto bg-white text-black rounded-lg shadow-sm">
+        <table className="w-full text-sm text-left text-black min-w-[600px]">
           <thead className="text-xs text-black uppercase bg-gray-100">
             <tr>
-              <th scope="col" className="px-1 py-1">#</th>
-              <th scope="col" className="px-6 py-3">STUDENT ID</th>
-              <th scope="col" className="px-6 py-3">Name</th>
-              <th scope="col" className="px-6 py-3">Gender</th>
-              <th scope="col" className="px-6 py-3">DOB</th>
-              <th scope="col" className="px-6 py-3">Phone</th>
-              <th scope="col" className="px-6 py-3">Status</th>
-              <th scope="col" className='px-6 py-3'>Actions</th>
+              <th className="px-2 py-1">#</th>
+              <th className="px-4 py-3">Student ID</th>
+              <th className="px-4 py-3">Name</th>
+              <th className="px-4 py-3">Gender</th>
+              <th className="px-4 py-3">DOB</th>
+              <th className="px-4 py-3">Phone</th>
+              <th className="px-4 py-3">Status</th>
+              <th className="px-4 py-3">Actions</th>
             </tr>
           </thead>
           <tbody>
             {currentRows.map((row: any, index: number) => (
-              <tr key={index} className="bg-white border-b border-gray-300">
-                <td scope="col" className="px-1 py-1">{index + 1}.</td>
-                <td className="px-6 py-4">{row.studentId}</td>
-                <td className="px-6 py-4">{row.fullName}</td>
-                <td className="px-6 py-4">{handleGender(row.gender)}</td>
-                <td className="px-6 py-4">{row.dob}</td>
-                <td className="px-6 py-4">{row.phone}</td>
-                <td className="px-6 py-4">{handleStatus(row.status)}</td>
-                <td className='px-6 py-4' >
-                  <div className="flex gap-3">
-                    <button className="cursor-pointer" onClick={() => {
-                      setShowModel(true)
-                      setId(row.id)
-                    }}><FaPencilAlt size={20} />
+              <tr key={index} className="bg-white border-b border-gray-200">
+                <td className="px-2 py-2">{index + 1}.</td>
+                <td className="px-4 py-2">{row.studentId}</td>
+                <td className="px-4 py-2">{row.fullName}</td>
+                <td className="px-4 py-2">{handleGender(row.gender)}</td>
+                <td className="px-4 py-2">{row.dob}</td>
+                <td className="px-4 py-2">{row.phone}</td>
+                <td className="px-4 py-2">{handleStatus(row.status)}</td>
+                <td className="px-4 py-2">
+                  <div className="flex gap-2">
+                    <button onClick={() => { setShowModel(true); setId(row.id); }}>
+                      <FaPencilAlt size={18} />
                     </button>
-                    <button className="cursor-pointer" onClick={() => {
-                      setId(row.id);         // set id first
-                      setViewShow(true);     // then show the view popup
-                    }}>
-                      <BiSolidShow size={25} />
+                    <button onClick={() => { setId(row.id); setViewShow(true); }}>
+                      <BiSolidShow size={22} />
                     </button>
-
                   </div>
                 </td>
               </tr>
@@ -153,15 +129,15 @@ const Students = () => {
         </table>
       </div>
 
-      {/* Pagination Controls */}
+      {/* Pagination */}
       <div className="flex justify-center bg-white mt-4">
-        <nav aria-label="Page navigation example">
+        <nav>
           <ul className="inline-flex -space-x-px text-base h-10">
             <li>
               <button
                 onClick={goToPreviousPage}
                 disabled={currentPage === 1}
-                className="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700"
+                className="px-4 h-10 text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100"
               >
                 Previous
               </button>
@@ -170,22 +146,20 @@ const Students = () => {
               <li key={number}>
                 <button
                   onClick={() => paginate(number)}
-                  className={`flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 ${currentPage === number
-                    ? 'text-blue-600 border-blue-300 bg-blue-100 font-semibold'
-                    : ''
+                  className={`px-4 h-10 border border-gray-300 hover:bg-gray-100 ${currentPage === number
+                    ? 'text-blue-600 bg-blue-100 font-semibold border-blue-300'
+                    : 'text-gray-500 bg-white'
                     }`}
                 >
                   {number}
                 </button>
               </li>
             ))}
-
-
             <li>
               <button
                 onClick={goToNextPage}
                 disabled={currentPage === pageNumbers.length}
-                className="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700"
+                className="px-4 h-10 text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100"
               >
                 Next
               </button>
