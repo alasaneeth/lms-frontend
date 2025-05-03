@@ -22,7 +22,7 @@ const GridViewTable: React.FC<GridViewTableProps> = ({
   columns,
   fetchData,
   searchFunction,
-  rowsPerPage = 6,
+  rowsPerPage = 9,
   AddComponent,
   ViewComponent,
   actions,
